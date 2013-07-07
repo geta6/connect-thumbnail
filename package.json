@@ -11,7 +11,9 @@
   "dependencies": {
     "mime": "*",
     "async": "*",
-    "underscore": "*"
+    "mktemp": "*",
+    "underscore": "*",
+    "musicmetadata": "*"
   },
   "devDependencies": {
     "coffee-script": "*"
