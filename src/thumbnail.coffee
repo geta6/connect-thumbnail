@@ -89,7 +89,8 @@ module.exports = (options = {}) ->
           tmp = mktemp.createFileSync path.join options.cache, 'XXXXXX.jpg'
           fs.writeFileSync tmp, img
           exec "convert -define jpeg:size=160x160 -resize 160x160 '#{tmp}' '#{dst}'", (err) ->
-            img = new Buffer fs.readFileSync dst
+            console.error err if err
+            img = new Buffer fs.readFileSync dst if fs.existsSync dst
             fs.unlinkSync tmp if fs.existsSync tmp
             return done err
 
