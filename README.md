@@ -44,7 +44,12 @@ app.use(require('connect-thumbnail')({/* options */}));
 ### timeout [Number]
 
   * __optional__
-  * request timeout, default 5000.
+  * request timeout, default `5000`.
+
+### resize [String]
+
+  * __optional__
+  * resize image for imagemagick, default `160x160`.
 
 ## MIT LICENSE
 Copyright &copy; 2013 geta6 licensed under [MIT](http://opensource.org/licenses/MIT)

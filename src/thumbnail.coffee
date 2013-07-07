@@ -15,6 +15,7 @@ module.exports = (options = {}) ->
   options.path or= path.resolve()
   options.cache or= '/tmp'
   options.timeout or= 5000
+  options.resize or= '160x160'
 
   return (req, res, next) ->
 
@@ -88,7 +89,7 @@ module.exports = (options = {}) ->
         (done) ->
           tmp = mktemp.createFileSync path.join options.cache, 'XXXXXX.jpg'
           fs.writeFileSync tmp, img
-          exec "convert -define jpeg:size=160x160 -resize 160x160 '#{tmp}' '#{dst}'", (err) ->
+          exec "convert -define jpeg:size=#{options.resize} -resize #{options.resize} '#{tmp}' '#{dst}'", (err) ->
             console.error err if err
             img = new Buffer fs.readFileSync dst if fs.existsSync dst
             fs.unlinkSync tmp if fs.existsSync tmp
