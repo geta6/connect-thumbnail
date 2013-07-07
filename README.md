@@ -1,7 +1,7 @@
 # connect-thumbnail
 
   connect middleware for generate thumbnail from image, audio, video and pdf file.
-  
+
 ## requirement
 
 * imagemagick
@@ -21,6 +21,7 @@ app.use(require('connect-thumbnail')({/* options */}));
 ```
 
 * `<img src='http://example.net/audio.mp3.thumbnail'>`
+* directory -> try to thumb latest file includes
 
 ## options
 

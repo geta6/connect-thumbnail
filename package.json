@@ -1,6 +1,6 @@
 {
   "name": "connect-thumbnail",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "connect middleware for thumbnail",
   "main": "lib/thumbnail.js",
   "repository": {
@@ -19,7 +19,7 @@
     "coffee-script": "*"
   },
   "author": "geta6",
-  "licenses": "BSD",
+  "licenses": "MIT",
   "bugs": {
     "url": "https://github.com/geta6/connect-thumbnail/issues"
   }

@@ -35,7 +35,7 @@ module.exports = (options = {}) ->
       )(src)
       return next() if src.length is 0
       src = _.reject src, (src) -> src.isDirectory()
-      src = (_.sortBy src, (src) -> src.mtime)[0]
+      src = (_.sortBy src, (src) -> -1 * src.mtime)[0]
       tag = "#{src.dev}-#{src.ino}-#{src.mtime.getTime()}"
       if req.headers['if-none-match'] is "\"#{tag}\""
         res.statusCode = 304
