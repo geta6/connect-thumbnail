@@ -20,7 +20,7 @@ npm install connect-thumbnail
 app.use(require('connect-thumbnail')({/* options */}));
 ```
 
-* access `audio.mp3.thumbnail`, return `options.path + 'audio.mp3'` thumbnail.
+* `<img src='http://example.net/audio.mp3.thumbnail'>`
 
 ## options
 
@@ -40,7 +40,7 @@ app.use(require('connect-thumbnail')({/* options */}));
   * cache path, default `/tmp`.
   * no regenerate if already exists cached file.
 
-## timeout [Number]
+### timeout [Number]
 
   * __optional__
   * request timeout, default 5000.
