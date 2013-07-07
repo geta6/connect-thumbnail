@@ -69,7 +69,6 @@ module.exports = (options = {}) ->
               time = (stderr.replace /^[\s\S]*Duration: (.*?),[\s\S]*$/, '$1').split ':'
               time = (parseInt time[0])*60*60 + (parseInt time[1])*60 + (parseFloat time[2])
               tmpjpg = mktemp.createFileSync path.join options.cache, 'XXXXXX.jpg'
-              console.log parseInt time/3
               exec "ffmpeg -y -ss #{parseInt time/3} -vframes 1 -i '#{src.path}' -f image2 '#{tmpjpg}'", (err) ->
                 img = new Buffer fs.readFileSync tmpjpg
                 fs.unlinkSync tmpjpg if fs.existsSync tmpjpg
