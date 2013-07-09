@@ -52,17 +52,25 @@ app.use(require('connect-thumbnail')({/* options */}));
   * resize image for imagemagick, default `160x160`.
 
 ### errors [Boolean]
-  
+
   * __optional__
   * show error log, default `false`
 
 ### default [String]
-  
+
   * __optional__
   * fallback image, default `null`
   * search from `#{default}`, `#{path}/#{default}`, `#{PROJECT}/#{default}`
 
 ## Fallback
+
+### Fallback from client
+
+  * redirect to `req.query.fallback`
+    * `http://example.net/some/file.mp3?fallback=/img/audio.png`
+    * returns redirect to `/img/audio.png`
+
+### Fallback from server
 
   * on fallback, get file info from `res._thumbnail` and `res._thumbnailError`
   * `res._thumbnail` has target file's `stat` + `path`

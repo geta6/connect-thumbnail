@@ -104,6 +104,8 @@ module.exports = (options = {}) ->
         res._thumbnail = src
         res._thumbnailError = err
         if err
+          if req.query.fallback
+            return res.redirect req.query.fallback
           if options.default
             if fs.existsSync options.default
               res.statusCode = 200
