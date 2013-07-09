@@ -15,7 +15,9 @@ module.exports = (options = {}) ->
   options.path or= path.resolve()
   options.cache or= '/tmp'
   options.timeout or= 5000
+  options.errors or= no
   options.resize or= '160x160'
+  options.default or= null
 
   return (req, res, next) ->
 
@@ -97,7 +99,20 @@ module.exports = (options = {}) ->
 
       ], (err) ->
         if err
-          console.error err, src.path
+          if options.default
+            if fs.existsSync options.default
+              res.statusCode = 200
+              return res.end new Buffer fs.readFileSync options.default
+            else if fs.existsSync path.join options.path, options.default
+              res.statusCode = 200
+              return res.end new Buffer fs.readFileSync path.join options.path, options.default
+            else if fs.existsSync path.resolve options.default
+              res.statusCode = 200
+              return res.end new Buffer fs.readFileSync path.resolve options.default
+          if options.errors
+            console.error err, src.path
+          res._thumbnail = src
+          res._thumbnailError = err
           return next()
         res.statusCode = 200
         res.setHeader 'ETag', "\"#{tag}\""

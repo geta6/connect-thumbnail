@@ -51,6 +51,38 @@ app.use(require('connect-thumbnail')({/* options */}));
   * __optional__
   * resize image for imagemagick, default `160x160`.
 
+### errors [Boolean]
+  
+  * __optional__
+  * show error log, default `false`
+
+### default [String]
+  
+  * __optional__
+  * fallback image, default `null`
+  * search from `#{default}`, `#{path}/#{default}`, `#{PROJECT}/#{default}`
+
+## Fallback
+
+  * on fallback, get thumbnail info by `res._thumbnail` and `res._thumbnailError`
+  * `res._thumbnail` has target file stat + path + basename
+    * (`_.extend(fs.statSync(target), { path: 'path', name: 'name'})`)
+  * `res._thumbnailError` is instanceof `Error`
+
+```
+app.use(require('connect-thumbnail')({
+  ext: 'thumbnail'
+}));
+app.get(/.*\.thumbnail$/, function (req, res) {
+  // this section hooks only thumbnail fallback
+  if (res._thumbnail) {
+    console.log(res._thumbnail);
+  }
+});
+```
+
+
+
 ## MIT LICENSE
 Copyright &copy; 2013 geta6 licensed under [MIT](http://opensource.org/licenses/MIT)
 
