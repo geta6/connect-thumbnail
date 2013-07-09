@@ -1,6 +1,6 @@
 {
   "name": "connect-pdfsplit",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "connect middleware for thumbnail",
   "main": "lib/thumbnail.js",
   "repository": {
