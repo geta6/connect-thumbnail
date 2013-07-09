@@ -64,9 +64,9 @@ app.use(require('connect-thumbnail')({/* options */}));
 
 ## Fallback
 
-  * on fallback, get thumbnail info by `res._thumbnail` and `res._thumbnailError`
-  * `res._thumbnail` has target file stat + path + basename
-    * (`_.extend(fs.statSync(target), { path: 'path', name: 'name'})`)
+  * on fallback, get file info from `res._thumbnail` and `res._thumbnailError`
+  * `res._thumbnail` has target file's `stat` + `path`
+    * `_.extend(fs.statSync(target), { path: 'path'})`
   * `res._thumbnailError` is instanceof `Error`
 
 ```
@@ -80,8 +80,6 @@ app.get(/.*\.thumbnail$/, function (req, res) {
   }
 });
 ```
-
-
 
 ## MIT LICENSE
 Copyright &copy; 2013 geta6 licensed under [MIT](http://opensource.org/licenses/MIT)

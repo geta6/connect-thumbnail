@@ -25,7 +25,7 @@ module.exports = (options = {}) ->
     if regex.test req._parsedUrl.pathname
       req.connection.setTimeout options.timeout
       src = path.join options.path, decodeURI req._parsedUrl.pathname.replace regex, ''
-      $stat = (src) -> _.extend (fs.statSync src), { path: src, name: path.basename src }
+      $stat = (src) -> _.extend (fs.statSync src), { path: src }
       return next() unless fs.existsSync src
       src = ( (src) ->
         src = $stat src if typeof src is 'string'
@@ -53,7 +53,7 @@ module.exports = (options = {}) ->
         res.setHeader 'Content-Length', img.length
         return res.end img
 
-      type = mime.lookup src.name
+      type = mime.lookup path.basename src
 
       async.series [
         (done) ->
