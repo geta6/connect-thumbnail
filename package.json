@@ -1,6 +1,6 @@
 {
   "name": "connect-thumbnail",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "connect middleware for thumbnail",
   "main": "lib/thumbnail.js",
   "repository": {

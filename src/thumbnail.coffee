@@ -32,10 +32,13 @@ module.exports = (options = {}) ->
         return [src] unless src.isDirectory()
         data = []
         for file in fs.readdirSync src.path
-          data.push file = $stat path.join src.path, file
-          data = (data.concat arguments.callee file) if file.isDirectory()
+          unless /^(\.DS.+|Network Trash Folder|Temporary Items|\.Apple.*|Thumbs.db)$/i.test file
+            data.push file = $stat path.join src.path, file
+            data = (data.concat arguments.callee file) if file.isDirectory()
         return data
       )(src)
+      res._thumbnail = src
+      res._thumbnailError = new Error 'blank folder'
       return next() if src.length is 0
       src = _.reject src, (src) -> src.isDirectory()
       src = (_.sortBy src, (src) -> -1 * src.mtime)[0]
@@ -53,7 +56,7 @@ module.exports = (options = {}) ->
         res.setHeader 'Content-Length', img.length
         return res.end img
 
-      type = mime.lookup path.basename src
+      type = mime.lookup path.basename src.path
 
       async.series [
         (done) ->
@@ -98,6 +101,8 @@ module.exports = (options = {}) ->
             return done err
 
       ], (err) ->
+        res._thumbnail = src
+        res._thumbnailError = err
         if err
           if options.default
             if fs.existsSync options.default
@@ -111,8 +116,6 @@ module.exports = (options = {}) ->
               return res.end new Buffer fs.readFileSync path.resolve options.default
           if options.errors
             console.error err, src.path
-          res._thumbnail = src
-          res._thumbnailError = err
           return next()
         res.statusCode = 200
         res.setHeader 'ETag', "\"#{tag}\""
